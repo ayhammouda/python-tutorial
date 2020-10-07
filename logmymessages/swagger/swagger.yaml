@@ -1,0 +1,46 @@
+swagger: "2.0"
+
+info:
+  title: "{{title}}"
+  version: "1.0"
+
+basePath: /v1.0
+
+paths:
+  /log:
+    post:
+      summary: Log the messages
+      description: Write the recieved message to a log file.
+      operationId: api.log.write
+      produces:
+        - application/json;
+      responses:
+        200:
+          description: number of received messages
+          schema:
+            type: object
+      parameters:
+        - name: message
+          in: body
+          description: the JSON text object.
+          schema:
+            type: object
+            required:
+            - sender
+            - message
+            properties:
+              sender:
+                type: string
+              message:
+                type: string
+    get:
+      summary: Read the received messages
+      description: Read the recieved message to a log file.
+      operationId: api.log.read
+      produces:
+        - application/json;
+      responses:
+        200:
+          description: number of received messages
+          schema:
+            type: object
