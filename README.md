@@ -5,14 +5,19 @@
 If you’re reading this article then you already have said this to yourself : I need to quickly build an API, with the least amount of code possible, but how ? And I’m guessing you know a bit of Python too.As DevOps Engineers we’re often faced with the need to build some automation tool to trigger this or to do that and have it exposed using an API to be used later by other apps or services ( Jira, Jenkins, services, .. )So in this tutorial we’re going to try and build us an simple automation API, and have it automate few tasks for us. And In a second article we’ll try to add HTTPS support
 some authentications mechanisms so it can pass security requirements of enterprises and organisations.
 
-## Requirements
+# Table of Contents
+2. [Requirements](#requirements)
+3. [Let's Start](#letsstart)
+  1. [Hello World](#helloworld)
+
+## Requirements <a name="requirements"></a>
 
 To build our API we will be using Python 3 programming language and we’ll use the Connexion framework to handle our HTTP requests and interactions.
 
 - [Python 3](https://www.python.org/downloads/)
 - [Connexion](https://github.com/zalando/connexion)
 
-## Let's Start
+## Let's Start <a name="letsstart"></a>
 
 if you haven't installed connexion yet you can do so by running:
 
@@ -20,7 +25,7 @@ if you haven't installed connexion yet you can do so by running:
 $ pip install connexion
 ```
 
-### Hello World
+### Hello World <a name="helloworld"></a>
 
 let's start with an old fashioned *Hello* *World* :
 
