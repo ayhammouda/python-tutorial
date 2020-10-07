@@ -6,9 +6,10 @@ If you’re reading this article then you already have said this to yourself : I
 some authentications mechanisms so it can pass security requirements of enterprises and organisations.
 
 # Table of Contents
-2. [Requirements](#requirements)
-3. [Let's Start](#letsstart)
-  1. [Hello World](#helloworld)
+1. [Requirements](#requirements)
+2. [Let's Start](#letsstart)
+   1. [Hello World](#helloworld)
+   2. [Log My Messages](#logmymessages)
 
 ## Requirements <a name="requirements"></a>
 
@@ -105,7 +106,7 @@ $ curl --request POST 'http://localhost:8080/v1.0/greeting/john'
 
 the connexion framework rendered our specifictions defined in our yaml file  to create the API server and linked the greeting endpoint with the greeting method in the `helloworld.py` using the object `operationId: helloworld.greeting` where we passed a parameter called `name` to the method.
 
-### Log My Messages
+### Log My Messages <a name="logmymessages"></a>
 
 Now that we got around the basic let's do somehting that is not a _Hello World_, We're going to build an API that will receive a POST request with a json body and write the text in a file and then return the lines count in this file, so let's dive right to it:
 
