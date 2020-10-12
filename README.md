@@ -2,23 +2,26 @@
 
 ## Introduction
 
-If you’re reading this article then you already have said this to yourself : I need to quickly build an API, with the least amount of code possible, but how ? And I’m guessing you know a bit of Python too.As DevOps Engineers we’re often faced with the need to build some automation tool to trigger this or to do that and have it exposed using an API to be used later by other apps or services ( Jira, Jenkins, services, .. )So in this tutorial we’re going to try and build us an simple automation API, and have it automate few tasks for us. And In a second article we’ll try to add HTTPS support
-some authentications mechanisms so it can pass security requirements of enterprises and organisations.
+If you’re reading this article then you already have said this to yourself: I need to quickly build an API, with the least amount of code possible, but how? And I’m guessing you know a bit of Python too. As DevOps Engineers we’re often faced with the need to build, [among other things](https://intellipaat.com/blog/wp-content/uploads/2017/11/DevOps-01.jpg), automation tools [[1]](https://newrelic.com/devops/what-is-devops#Chapter5HowDoesDevOpsWork)[[2]](https://landing.google.com/sre/workbook/chapters/eliminating-toil/#automate-toil-response) and have it exposed using an API[[3]](https://landing.google.com/sre/workbook/chapters/reaching-beyond/#everything-important-eventually-becomes-a-platform) to be used later by other software components (Jira, Jenkins, services, applications,… ). So, in this tutorial we’re going to propose building a simple API, and have it automate few tasks for us. In a second article we’ll show how to add HTTPS support and authentication mechanisms so it can pass security requirements of enterprises and organisations.
 
 # Table of Contents
 1. [Requirements](#requirements)
 2. [Let's Start](#letsstart)
    1. [Hello World](#helloworld)
    2. [Log My Messages](#logmymessages)
+3. *[&#x1F536;Conclusion](#conclusion)*
 
 ## Requirements <a name="requirements"></a>
 
-To build our API we will be using Python 3 programming language and we’ll use the Connexion framework to handle our HTTP requests and interactions.
+To build our API we will be using Python programming language in its 3rd version and we’ll use the Connexion framework to handle our HTTP requests and interactions.
 
 - [Python 3](https://www.python.org/downloads/)
+- &#x1F536; [Flask](https://flask.palletsprojects.com/en/1.1.x/)
 - [Connexion](https://github.com/zalando/connexion)
 
 ## Let's Start <a name="letsstart"></a>
+
+I presume you have installed Python on your plateform. If you didn't, I suggest you those awsome tutorials by [....]()
 
 if you haven't installed connexion yet you can do so by running:
 
@@ -27,6 +30,8 @@ $ pip install connexion
 ```
 
 ### Hello World <a name="helloworld"></a>
+
+*&#x1F536; Suggestion: show a Hello world with Falsk and then switch to Connexion to show its benefits.*
 
 let's start with an old fashioned *Hello* *World* :
 
@@ -44,7 +49,9 @@ if __name__ == '__main__':
     app.run()
 ```````
 
-In the code above, we have the main code that will render our specifications for the API and load the arguments, and the operation method `greeting` which will be executed when we run the api server.
+In the code above, we have the main code that will render our specifications for the API and load the arguments, and the operation method `greeting` which will be executed when we run the api server. 
+
+*&#x1F536; it's not clear how the  the operation method `greeting` will be executed when we'll run the server may be it will be more clear by introduicing breifly swagger and what is a "swagger specification", "contract first" etc.*
 
 Next, we will write the specifications of the API, for this we will create a new folder called `swagger` and we will add a new file `swagger/helloworld.yaml`:
 
@@ -79,8 +86,9 @@ paths:
           required: true
           type: string
 ``````
+*&#x1F536; this file needs more explanation IMO; the global configuration part, the API URL endpoints configuration part, the methods, the responses, the successfull one, the parameters, etc. or add more details in the **So what just happened ?** section * 
 
-And that's it, we are ready to go :) :
+And that's it, we are ready to go &#x1F60A; :
 
 To run the API server:
 
@@ -93,6 +101,7 @@ You should be faced with a warning message saying that "*The swagger_ui director
 ``````python
 $ pip install 'connexion[swagger-ui]'
 ``````
+*&#x1F536; why not add this to the requirements?*
 
 This UI is accessible at : <http://localhost:8080/v1.0/ui>
 
@@ -108,7 +117,7 @@ the connexion framework rendered our specifictions defined in our yaml file  to 
 
 ### Log My Messages <a name="logmymessages"></a>
 
-Now that we got around the basic let's do somehting that is not a _Hello World_, We're going to build an API that will receive a POST request with a json body and write the text in a file and then return the lines count in this file, so let's dive right to it:
+Now that we got around the basic let's do somehting that is not a _Hello World_, We're going to build an API that will receive a POST request with a json body and write the text in a file and then return the lines count in this file, so let's dive right to it!
 
 In a new app folder, let's call it logmymessages, once again we'll create main file called app.py
 
@@ -160,10 +169,7 @@ paths:
               message:
                 type: string
 ```
-
-To define the behaviour of the end point we are going to create a new file called log.py where we will implement the operation api.log.write, to do so, we'll create a folder called api and inside this folder we will create a file log.py:
-
-`api/log.py`:
+To define the behaviour of the end point we are going to create a new file called log.py where we will implement the operation `api.log.write`. To do so, we'll create a folder called `api` and inside this folder we will create the `log.py` file as follows
 
 ```python
 from datetime import datetime
@@ -184,6 +190,7 @@ def write(message):
         "count_messages": num_lines
     }
 ```
+*&#x1F536; needs more explanation IMO in a style like: "In this code, we created a write function that will receive as parameter a  `message` dictionary data structure… it will open … the count and return…"*
 
 Let's run the API server and test our new app:
 
@@ -238,7 +245,7 @@ $ cat log.txt
 [20210101-101010][Stormtrooper] : I am 90% sure Matt is Kylo Ren!
 ```
 
-For our second operation we will try the read this file and get back the messages logged in this file by send a GET request to our `/log` endpoint:
+For our second operation we will try to read this file and get back the messages logged in by send a GET request to our `/log` endpoint.
 
 In the `swagger/swagger.yaml` file we will add:
 
@@ -306,3 +313,11 @@ Output:
   }
 ]
 ```
+*&#x1F536; It'll be nice to have so swagger UI screenshots. *
+
+*&#x1F536; ## Conclusion <a name="conclusion"></a>*
+
+In this tutorial, you saw how fast and easy it is to create a REST API with Python …
+
+In Part 2 of this series, you’ll learn how to … 
+
