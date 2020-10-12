@@ -2,14 +2,14 @@
 
 ## Introduction
 
-If you’re reading this article then you already have said this to yourself: I need to quickly build an API, with the least amount of code possible, but how? And I’m guessing you know a bit of Python too. As DevOps Engineers we’re often faced with the need to build, [among other things](https://intellipaat.com/blog/wp-content/uploads/2017/11/DevOps-01.jpg), automation tools [1](https://newrelic.com/devops/what-is-devops#Chapter5HowDoesDevOpsWork)[2](https://landing.google.com/sre/workbook/chapters/eliminating-toil/#automate-toil-response) and have it exposed using an API[3](https://landing.google.com/sre/workbook/chapters/reaching-beyond/#everything-important-eventually-becomes-a-platform) to be used later by other software components (Jira, Jenkins, services, applications,… ). So, in this tutorial we’re going to propose building a simple API, and have it automate few tasks for us. In a second article we’ll show how to add HTTPS support and authentication mechanisms so it can pass security requirements of enterprises and organisations.
+If you’re reading this article then you already have said this to yourself: I need to quickly build an API, with the least amount of code possible, but how? And I’m guessing you know a bit of Python too. As DevOps Engineers we’re often faced with the need to build, [among other things](https://intellipaat.com/blog/wp-content/uploads/2017/11/DevOps-01.jpg), automation tools [[1]](https://newrelic.com/devops/what-is-devops#Chapter5HowDoesDevOpsWork)[[2]](https://landing.google.com/sre/workbook/chapters/eliminating-toil/#automate-toil-response) and have it exposed using an API[[3]](https://landing.google.com/sre/workbook/chapters/reaching-beyond/#everything-important-eventually-becomes-a-platform) to be used later by other software components (Jira, Jenkins, services, applications,… ). So, in this tutorial we’re going to propose building a simple API, and have it automate few tasks for us. In a second article we’ll show how to add HTTPS support and authentication mechanisms so it can pass security requirements of enterprises and organisations.
 
 # Table of Contents
 1. [Requirements](#requirements)
 2. [Let's Start](#letsstart)
    1. [Hello World](#helloworld)
    2. [Log My Messages](#logmymessages)
-3. *&#x1F536;[Conclusion](#conclusion)
+3. *[&#x1F536;Conclusion](#conclusion)*
 
 ## Requirements <a name="requirements"></a>
 
