@@ -26,8 +26,8 @@ paths:
           schema:
             type: object
             required:
-            - sender
-            - message
+              - sender
+              - message
             properties:
               sender:
                 type: string
@@ -44,3 +44,10 @@ paths:
           description: number of received messages
           schema:
             type: object
+  /health-check:
+    get:
+      operationId: app.health_check
+      summary: Health check for the api
+      responses:
+        200:
+          description: Empty 200 response

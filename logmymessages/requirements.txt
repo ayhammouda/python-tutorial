@@ -1,0 +1,3 @@
+gunicorn >= 20.0.4
+connexion[swagger-ui] >= 2.7.0
+connexion >= 2.7.0
