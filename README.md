@@ -10,21 +10,18 @@ If you’re reading this article then you already have said this to yourself: I 
 2. [Let's Start](#letsstart)
    1. [Hello World](#helloworld)
    2. [Log My Messages](#logmymessages)
-3. Containerization
+3. [Containerization](#containerization)
 4. [Conclusion](#conclusion)
 
 ## Requirements <a name="requirements"></a>
-
-To build our API we will be using Python 3 programming language and we’ll use the Connexion framework to handle our HTTP requests and interactions.
-
-- [Python 3](https://www.python.org/downloads/)
-- [Connexion](https://github.com/zalando/connexion) ([Why connexion?](https://github.com/zalando/connexion#why-connexion))
-
-I presume you have already Python set up on your platform. If you don't, I suggest you those awsome tutorials to get you up and running:
+4. [Conclusion](#conclusion)
+ou have already Python set up on your platform. If you don't, I suggest to you those awsome tutorials to get you up and running:
 
 - [Installing Python](https://realpython.com/installing-python/)
 - [Awesome Python](https://github.com/vinta/awesome-python)
 
+## Why connexion? <a name="why-connexion"></a>
+As a DevOps, I have grown very fond of the declarative approach as more and more tools are adopting, [Kubernetes](https://kubernetes.io), [Terraform](https://www.terraform.io/), A code that documentates itself, built with the end result in mind, reusable and idempotent[[5]](https://www.toptal.com/software/declarative-programming) so when I first discovered Connexion, I saw its potential to take a huge chunk of the work off in a contract first approach where the API definition is interpreted from yaml file with all the necessary data structures and validations. I understand if some users would prefer using Flask in a more convential way for advanced use cases. But for most use cases I would rather use this contract first, and Connexion does a very good job at it. ([See also Why Connexion](https://github.com/zalando/connexion#why-connexion))
 ## Let's Start <a name="letsstart"></a>
 
 if you haven't installed connexion yet you can do so by running:
@@ -95,7 +92,7 @@ To run the API server:
 $ python helloworld.py
 ``````
 
-**Note:** If you're face with a warning message saying that "*The swagger_ui directory could not be found.*" this library is used to generate the swagger documention for the defined specifications. to fix this you can install the optional connexion's swagger-ui:
+**Note:** If you're face with a warning message saying that "*The swagger_ui directory could not be found.*" this library is used to generate the swagger documention for the defined specifications. to fix this you can install the optional connexion swagger-ui: (Read more about optional dependencies [here](https://www.python.org/dev/peps/pep-0508/#extras))
 
 ``````python
 $ pip install 'connexion[swagger-ui]'
@@ -389,7 +386,7 @@ Output:
 ]
 ```
 
-## Containerization
+## Containerization  <a name="containerization"></a>
 
 In the section we're going to make build a docker image of our Python API and run our service in a containerzied environment so we can we can prep our API to deployed on different platfoms.
 
@@ -401,11 +398,15 @@ First we start by creating a `requirements.txt` file where we'll define all the 
 
 ```
 gunicorn >= 20.0.4
-connexion[swagger-ui] >= 2.7.0
 connexion >= 2.7.0
+connexion[swagger-ui] >= 2.7.0
 ```
+This will allow for out container to be shipped with all it's dependencies. As you can see it only requires two thing:
+- the connexion framework and the optional extra swagger-ui 
+- [gunicorn](https://gunicorn.org/) or Green Unicorn an opensource pyton production grade web server that we'll use to run our api on.
+In case you're wondering what's a `requirements.txt` file, it's a text file which, by convention, contains a list of all the pypi dependencies required by a python application to build an run.[[6]](https://pip.pypa.io/en/stable/user_guide/#requirements-files) 
 
-
+Next we'll create the Dockerfile 
 
 `Dockerfile`: 
 
@@ -414,18 +415,41 @@ FROM python:3.6
 
 WORKDIR /opt/logmymessages
 
-# Installing dependencies
-RUN pip install --upgrade pip
-COPY ./requirements.txt .
-RUN pip install -r requirements.txt
-
 # copy project
 COPY . .
+
+# Installing dependencies
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
 
 CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]
 
 HEALTHCHECK --interval=30s --timeout=3s CMD curl -f http://localhost:8080/health-check || exit 1
 
 ```
+To build the image of our container we're going to use `python:3.6` as a base image, which is a debian image preloaded with python 3.6, pip 20.
 
-To build this 
+In the `WORKDIR` we copy our app and then `RUN` pip to install the required dependencies.
+
+To run the server, we use the gunicorn command, specify and binding socket and the path for the server's main.
+
+With the keyword `HEALTHCHECK` we tell the running container deamon to check perform a healthcheck every 30s, and if check fail, the container should exit.
+ 
+To build our container, in the logmymessages app folder, we run:
+```bash
+$ docker build -t logmymessages .
+```
+As output we should have the log of image being built tailed by a line `Successfully tagged logmymessages:latest`.
+
+Now we can run our container by executing the following command:
+```bash
+$ docker run -p 8080:8080 logmymessages
+```
+The API server should be up and running and available on the same URL.
+you can test this by accessing http://localhost:8080/v1.0/ui to see the Swagger UI. 
+## Conclusion <a name="conclusion"></a>
+
+In this tutorial we saw how to rapidly and API service and build the container image that can be deployed on any supporting platform.
+
+In the next tutorial we'll try to secure our application and prepare it for deploiment to prodution on a kuberntes cluster. 

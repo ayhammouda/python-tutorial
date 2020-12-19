@@ -35,9 +35,9 @@ def write(message):
         return {
             "count_messages": num_lines
         }
-    except (IOError) as e:
+    except (IOError) as error:
         return {
-            "Error": f"Error occured : {str(e)}",
+            "Error": f"Error occured : {str(error)}",
         }
 
 
@@ -80,7 +80,7 @@ def read():
                 })
         # Return the list of messages in the form of a array of dict
         return messages
-    except (IOError) as e:
+    except (IOError) as error:
         return {
-            "Error": f"Error occured : {str(e)}",
+            "Error": f"Error occured : {str(error)}",
         }
