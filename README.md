@@ -14,8 +14,12 @@ If you’re reading this article then you already have said this to yourself: I 
 4. [Conclusion](#conclusion)
 
 ## Requirements <a name="requirements"></a>
-4. [Conclusion](#conclusion)
-ou have already Python set up on your platform. If you don't, I suggest to you those awsome tutorials to get you up and running:
+To build our API we will be using Python 3 programming language and we’ll use the Connexion framework to handle our HTTP requests and interactions.
+
+- [Python 3](https://www.python.org/downloads/)
+- [Connexion](https://github.com/zalando/connexion) ([Why connexion?](https://github.com/zalando/connexion#why-connexion))
+
+ I presume you have already Python set up on your platform. If you don't, I suggest you those awsome tutorials to get you up and running:
 
 - [Installing Python](https://realpython.com/installing-python/)
 - [Awesome Python](https://github.com/vinta/awesome-python)
